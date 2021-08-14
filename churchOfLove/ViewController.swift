@@ -5,17 +5,17 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate{
     
     @IBOutlet weak var webView: WKWebView!
     override func loadView() {
-            super.loadView()
-            
-            webView = WKWebView(frame: self.view.frame)
-            webView.uiDelegate = self
-            webView.navigationDelegate = self
-            self.view = self.webView
-        }
+        super.loadView()
 
+        webView = WKWebView(frame: self.view.frame)
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+        self.view = self.webView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         let url = URL(string: "https://www.naver.com/")
         let request = URLRequest(url: url!)
         //self.webView?.allowsBackForwardNavigationGestures = true  //뒤로가기 제스쳐 허용
@@ -31,7 +31,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate{
         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in completionHandler() }))
         self.present(alertController, animated: true, completion: nil) }
-
+    
     //confirm 처리
     func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
         let alertController = UIAlertController(title: "", message: message, preferredStyle: .alert)

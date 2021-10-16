@@ -9,16 +9,38 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     var webView: WKWebView!
     
     override func viewDidLoad() {
-        super.viewDidLoad() 
+        super.viewDidLoad()
         
         let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
         let date = Date(timeIntervalSince1970: 0)
         WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date, completionHandler:{ })
-        
+
         initializeWebView()
+        
+        let firstLaunch = FirstLaunch()
+        var loadURL = ""
+        if firstLaunch.isFirstLaunch {
+            loadURL = Constants.BASE_URL.GUIDE_DOMAIN_URL
+        } else {
+            loadURL = Constants.BASE_URL.ADMIN_DOMAIN_URL
+        }
+        
+        loadWebPage(loadURL)
+        
+        //Crashlytics 테스트
+        let button = UIButton(type: .roundedRect)
+        button.frame = CGRect(x: 20, y: 50, width: 100, height: 30)
+        button.setTitle("Crash", for: [])
+        button.addTarget(self, action: #selector(self.crashButtonTapped(_:)), for: .touchUpInside)
+        self.view.addSubview(button)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        willBecomeActive()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        wllBecomeActive_Del()
     }
     
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() } //모달창 닫힐때 앱 종료현상 방지.
@@ -43,18 +65,6 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         return nil }
     
     func initializeWebView() {
-        let firstLaunch = FirstLaunch()
-        
-        var loadURL = ""
-        if firstLaunch.isFirstLaunch {
-            loadURL = Constants.BASE_URL.GUIDE_DOMAIN_URL
-        } else {
-            loadURL = Constants.BASE_URL.ADMIN_DOMAIN_URL
-        }
-        
-        let url = URL(string: loadURL)
-        let request = URLRequest(url: url!)
-        
         // Bridge 등록
         let contentController = WKUserContentController()
         contentController.add(self, name: "callNative")
@@ -68,20 +78,65 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         self.webView = WKWebView(frame: self.view.frame, configuration: configuration)
         self.webView.uiDelegate = self
         self.webViewBackgroundView.addSubview(self.webView)
+    }
         
-        //Crashlytics 테스트
-        let button = UIButton(type: .roundedRect)
-        button.frame = CGRect(x: 20, y: 50, width: 100, height: 30)
-        button.setTitle("Crash", for: [])
-        button.addTarget(self, action: #selector(self.crashButtonTapped(_:)), for: .touchUpInside)
-        self.view.addSubview(button)
-        //
+    func loadWebPage(_ loadURL: String) {
+        let url = URL(string: loadURL)
+        let request = URLRequest(url: url!)
+        
+        if self.webView == nil {
+            initializeWebView()
+        }
         
         self.webView.load(request)
     }
     
     @IBAction func crashButtonTapped(_ sender: AnyObject) {
         fatalError()
+    }
+    
+    private func willBecomeActive() {
+//            NotificationCenter.default.addObserver(self,
+//                                                   selector:#selector(appWillResignActive),
+//                                                   name:UIScene.willDeactivateNotification,
+//                                                   object:nil);
+//            NotificationCenter.default.addObserver(self,
+//                                                   selector:#selector(appDidBecomeActive),
+//                                                   name:UIScene.didActivateNotification,
+//                                                   object:nil);
+        
+        //            NotificationCenter.default.addObserver(self,
+//                                                   selector:#selector(appWillResignActive),
+//                                                   name:UIApplication.willResignActiveNotification,
+//                                                   object:nil);
+            NotificationCenter.default.addObserver(self,
+                                                   selector:#selector(appDidBecomeActive),
+                                                   name:UIApplication.didBecomeActiveNotification,
+                                                   object:nil);
+    }
+    
+    // MainViewController 화면이 사라지면 등록한 이벤트 Observer를 제거합니다.
+    private func wllBecomeActive_Del()    {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIApplication.didBecomeActiveNotification,
+                                                  object: nil)
+    }
+    
+    //등록한 이벤트로 이벤트가 수신될 경우, 실행될 함수 입니다.
+    @objc public func appDidBecomeActive() {
+        // * 푸시 클릭 시 "PUSH_URL"의 데이터로 WebView를 이동 시킵니다.
+        let userDefault = UserDefaults.standard
+        
+        guard let loadUrl = userDefault.object(forKey: "PUSH_URL") as? String else {
+            return
+        }
+        
+        let request: URLRequest = URLRequest.init(url: NSURL.init(string: loadUrl)! as URL, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
+        self.webView?.load(request)
+
+        // * URL 이동 후 "PUSH_URL" 키의 값을 빈 값으로 초기화 합니다.
+        userDefault.removeObject(forKey: "PUSH_URL")
+        userDefault.synchronize()
     }
 }
 

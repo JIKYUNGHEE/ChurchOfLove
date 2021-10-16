@@ -11,9 +11,6 @@ import FirebaseCore
 import FirebaseMessaging
 import UserNotifications
 
-//특정 URL 로 이동
-//https://sosoingkr.tistory.com/12
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -50,35 +47,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    //-MARK: Push 응답 왔을 때 동작
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // * Push에서 전달받은 UserInfo 데이터를 변수에 담습니다.
-        let userInfo = notification.request.content.userInfo
-        print("\(userInfo)")
-        print("\(userInfo["URL_TO_MOVE"])")
-        // * UserDefaults에 URL 정보를 저장합니다.
-        //    - PUSH_URL 이름의 키로 userInfo 안 link 데이터를 저장합니다.
-        let userDefault = UserDefaults.standard
-        userDefault.set(userInfo["URL_TO_MOVE"] ?? "", forKey: "PUSH_URL")
-        userDefault.synchronize()
+        completionHandler([.alert, .badge, .sound]) //foreground 상태에서도 알림 옴
     }
     
+    //-MARK: Push 알림 눌렀을 때 동작
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                     didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
-        // * Push에서 전달받은 UserInfo 데이터를 변수에 담습니다.
         let userInfo = response.notification.request.content.userInfo
-
-        // * UserDefaults에 URL 정보를 저장합니다.
-        //    - PUSH_URL 이름의 키로 userInfo 안 link 데이터를 저장합니다.
-        let userDefault = UserDefaults.standard
-        userDefault.set(userInfo["link"] ?? "", forKey: "PUSH_URL")
-        userDefault.synchronize()
-
-        print("\(#function)")
+        let pushUrl = userInfo["URL_TO_MOVE"] as? String
+        print("📕", (pushUrl ?? "링크 없음") as! String)
         
+        if pushUrl != nil {
+            print("📗", pushUrl)
+            if UIApplication.shared.applicationState == .active {
+                print("📗", "clicked foreground")
+                let vc = UIApplication.shared.windows.first!.rootViewController as! ViewController
+                vc.loadWebPage(pushUrl!)
+            } else {
+                print("📗", "clicked background")
+                //UserDefaults에 URL 정보를 저장
+                //PUSH_URL 이름의 키로 userInfo 안 link 데이터를 저장
+                let userDefault = UserDefaults.standard
+                userDefault.set(pushUrl, forKey: "PUSH_URL")
+                userDefault.synchronize()
+            }
+        } else {
+            print("📕", "App delegate push, no link")
+        }
         completionHandler()
     }
-    
 }
 
 

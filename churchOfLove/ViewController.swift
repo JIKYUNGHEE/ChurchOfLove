@@ -22,17 +22,10 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         if firstLaunch.isFirstLaunch {
             loadURL = Constants.BASE_URL.GUIDE_DOMAIN_URL
         } else {
-            loadURL = Constants.BASE_URL.ADMIN_DOMAIN_URL
+            loadURL = Constants.BASE_URL.USER_DOMAIN_URL
         }
         
         loadWebPage(loadURL)
-        
-        //Crashlytics 테스트
-        let button = UIButton(type: .roundedRect)
-        button.frame = CGRect(x: 20, y: 50, width: 100, height: 30)
-        button.setTitle("Crash", for: [])
-        button.addTarget(self, action: #selector(self.crashButtonTapped(_:)), for: .touchUpInside)
-        self.view.addSubview(button)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,13 +66,34 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = contentController
         configuration.preferences.javaScriptEnabled = true //자바스크립트 활성화
-        //self.webView?.allowsBackForwardNavigationGestures = true  //뒤로가기 제스쳐 허용
+        self.webView?.allowsBackForwardNavigationGestures = true  //뒤로가기 제스쳐 허용
         
         self.webView = WKWebView(frame: self.view.frame, configuration: configuration)
         self.webView.uiDelegate = self
+        self.webView.scrollView.showsVerticalScrollIndicator = false
+        self.webView.scrollView.showsHorizontalScrollIndicator = false
         self.webViewBackgroundView.addSubview(self.webView)
+        
+        
+        if #available(iOS 11.0, *) {
+            webView.scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            webView.translatesAutoresizingMaskIntoConstraints = false
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
+        }
     }
         
+    override func viewSafeAreaInsetsDidChange() {
+        if #available(iOS 11.0, *) {
+            webView.translatesAutoresizingMaskIntoConstraints = false
+            
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
+            
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(\(self.view.safeAreaInsets.top))-[v0]-(\(self.view.safeAreaInsets.bottom))-|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
+        }
+    }
+    
     func loadWebPage(_ loadURL: String) {
         let url = URL(string: loadURL)
         let request = URLRequest(url: url!)
@@ -90,25 +104,9 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         
         self.webView.load(request)
     }
-    
-    @IBAction func crashButtonTapped(_ sender: AnyObject) {
-        fatalError()
-    }
+
     
     private func willBecomeActive() {
-//            NotificationCenter.default.addObserver(self,
-//                                                   selector:#selector(appWillResignActive),
-//                                                   name:UIScene.willDeactivateNotification,
-//                                                   object:nil);
-//            NotificationCenter.default.addObserver(self,
-//                                                   selector:#selector(appDidBecomeActive),
-//                                                   name:UIScene.didActivateNotification,
-//                                                   object:nil);
-        
-        //            NotificationCenter.default.addObserver(self,
-//                                                   selector:#selector(appWillResignActive),
-//                                                   name:UIApplication.willResignActiveNotification,
-//                                                   object:nil);
             NotificationCenter.default.addObserver(self,
                                                    selector:#selector(appDidBecomeActive),
                                                    name:UIApplication.didBecomeActiveNotification,
@@ -171,20 +169,7 @@ extension ViewController: WKScriptMessageHandler {
             
             //            let dataString = ""
             //            webView.evaluateJavaScript("callWeb('\(dataString)')", completionHandler: nil)
-        case "outLink":
-            guard let outLink = message.body as? String, let url = URL(string: outLink) else {
-                return
-            }
-            
-            let alert = UIAlertController(title: "OutLink 버튼 클릭", message: "URL : \(outLink)", preferredStyle: .alert)
-            let openAction = UIAlertAction(title: "링크 열기", style: .default) { _ in
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-            let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-            alert.addAction(openAction)
-            alert.addAction(cancelAction)
-            
-            self.present(alert, animated: true, completion: nil)
+
         default:
             break
         }
@@ -218,34 +203,48 @@ extension ViewController: WKScriptMessageHandler {
     
     func shareImage(_ content: Dictionary<String, String>) {
         let type = content["TYPE"]
-        let img = content["IMG"]
+        let title = content["TITLE"]
         let text = content["TEXT"]
+        let img = content["IMG"]
+        let textColor = content["TEXT_COLOR"]
         
         let contentType = contentType(text, img)
         
         let uiImage = base64Convert(img)
-        let mergedImage = mergeTextToImage(text, uiImage)
+        let mergedImage = mergeTextToImage(title: title, contents: text, textColor: textColor, image: uiImage)
         
         //저장 - image nil 아닐 때
         if type == "SAVE" {
             if(contentType == .ONLY_TEXT) { //text만 있을 때
-                print("text 만은 저장하지 않습니다.")
+                shareImageRtn(type, "FAIL", "")
+                return
             }
             
             if(contentType == .ONLY_IMG) {  //image만 있을 때
-                //갤러리저장
-                UIImageWriteToSavedPhotosAlbum(uiImage, self, nil, nil)
+                if(uiImage == nil) {
+                    shareImageRtn(type, "FAIL", "")
+                    return
+                } else {
+                    //갤러리저장
+                    UIImageWriteToSavedPhotosAlbum(uiImage!,self, nil, nil)
+                }
             }
             
             if(contentType == .BOTH) {  //text+image 있을 때
-                //갤러리저장
-                UIImageWriteToSavedPhotosAlbum(mergedImage, self, nil, nil)
+                if(mergedImage == nil) {
+                    shareImageRtn(type, "FAIL", "")
+                    return
+                } else {
+                    //갤러리저장
+                    UIImageWriteToSavedPhotosAlbum(mergedImage!, self, nil, nil)
+                }
             }
         }
         
         //공유
         if type == "SHARE" {
-            var shareContent:Any = text
+            var shareContent:Any? = nil
+
             if(contentType == .ONLY_TEXT) { //text만 있을 때
                 shareContent = text
             }
@@ -258,44 +257,94 @@ extension ViewController: WKScriptMessageHandler {
                 shareContent = mergedImage
             }
             
-            let vc = UIActivityViewController(activityItems: [shareContent], applicationActivities: nil)
-            vc.excludedActivityTypes = [.saveToCameraRoll] //
-            present(vc, animated: true)
+            if(shareContent == nil) {
+                shareImageRtn(type, "FAIL", "")
+                return
+            } else {
+                let vc = UIActivityViewController(activityItems: [shareContent], applicationActivities: nil)
+                vc.excludedActivityTypes = [.saveToCameraRoll] //
+                present(vc, animated: true)
+            }
         }
     }
     
-    func base64Convert(_ base64String: String?) -> UIImage {
+    func base64Convert(_ base64String: String?) -> UIImage? {
+        if(base64String == nil) {
+            return nil
+        }
+        
         if (base64String?.isEmpty)! {
-            return #imageLiteral(resourceName: "no_image_icon")
-        }else {
+            return nil
+        } else {
             // !!! Separation part is optional, depends on your Base64String !!!
             let temp = base64String?.components(separatedBy: ",")
             let dataDecoded : Data = Data(base64Encoded: temp![1], options: .ignoreUnknownCharacters)!
             guard let decodedimage = UIImage(data: dataDecoded) else {
-                return #imageLiteral(resourceName: "no_image_icon")
+                return nil
             }
             return decodedimage
         }
     }
     
-    func mergeTextToImage(_ text: String?, _ uiImage:UIImage) -> UIImage {
-        guard let text = text else { return uiImage }
+    func shareImageRtn(_ type: String?, _ isSuccess: String?, _ msg: String?) {
+        var transferData : [String: Any] = [
+            "TYPE": type,
+            "RESULT": isSuccess,
+            "MSG": msg
+        ]
         
-        let imageSize = uiImage.size
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: transferData, options: [])
+            
+            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
+            print (jsonString)
+            
+            webView.evaluateJavaScript("native.callWeb('shareImageRtn', '\(jsonString)')", completionHandler: {
+                result, error in
+                if let anError = error {
+                    print("* error \(anError.localizedDescription)")
+                }
+            })
+        } catch {
+            
+        }
+        
+    }
+    
+    func mergeTextToImage(title: String?, contents: String?, textColor: String? , image: UIImage?) -> UIImage? {
+        guard let title = title else {
+            return nil
+        }
+        guard let contents = contents else {
+            return nil
+        }
+        guard let image = image else {
+            return nil
+        }
+        
+        let color = (textColor == "#000000") ? UIColor.black : UIColor.white
+        
+        let imageSize = image.size
         UIGraphicsBeginImageContextWithOptions(CGSize(width: imageSize.width, height: imageSize.height), false, 1.0)
         let currentView = UIView(frame: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
-        let currentImage = UIImageView(image: uiImage)
+        let currentImage = UIImageView(image: image)
         currentImage.frame = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
         currentView.addSubview(currentImage)
         
         let label = UILabel()
         label.frame = currentView.frame
-        
-        let fontSize: CGFloat = 34
-        let font = UIFont(name:"Noteworthy-Light" , size: fontSize)
+
+
+        let text = title + "\n\n" + contents
+        let font = UIFont(name:"HelveticaNeue-Medium" , size: 28)
+        let titleFont = UIFont(name:"Noteworthy-Bold" , size: 32)
+
         let attributedStr = NSMutableAttributedString(string: text)
         attributedStr.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: font ?? .init(), range: (text as NSString).range(of: text))
-        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: (text as NSString).range(of: text))
+        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: (text as NSString).range(of: text))
+//
+//        attributedStr.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: titleFont ?? .init(), range: (text as NSString).range(of: title))
+
         
         label.attributedText = attributedStr
         label.numberOfLines = 0
@@ -305,11 +354,11 @@ extension ViewController: WKScriptMessageHandler {
         currentView.addSubview(label)
         
         guard let currentContext = UIGraphicsGetCurrentContext() else {
-            return uiImage
+            return nil
         }
         currentView.layer.render(in: currentContext)
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-            return uiImage
+            return nil
         }
         
         UIGraphicsEndImageContext()

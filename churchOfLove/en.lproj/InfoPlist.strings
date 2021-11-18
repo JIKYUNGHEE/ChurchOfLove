@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  churchOfLove
+
+  Created by KYUNGHEE JI on 2021/11/14.
+  
+*/
+"CFBundleDisplayName" = "churchOfLove";
+"CFBundleName" = "churchOfLove";
+"NSPhotoLibraryUsageDescription" = "This app requires access to the photo libraray.";

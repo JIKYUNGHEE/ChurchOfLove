@@ -15,8 +15,8 @@ struct Constants {
     
     struct BASE_URL {
         static let USER_DOMAIN_URL = "http://13.125.252.119:8080/" //사용자 페이지
-        static let GUIDE_DOMAIN_URL = "http://13.125.252.119:8081/" //첫실행 페이지
-        static let ADMIN_DOMAIN_URL = "http://13.125.252.119:8081/" //관리자 페이지
-        static let ADMIN_DOMAIN_URL_TEST = "http://192.168.0.158:8081/" //관리자페이지-테스트용
+        static let GUIDE_DOMAIN_URL = "http://13.125.252.119:8080/mem/guide/" //첫실행 페이지
+        static let ADMIN_DOMAIN_URL = "http://webadmin.365qt.com:8090/" //관리자 페이지
+        static let ADMIN_DOMAIN_URL_TEST = "http://webadmin.365qt.com:8090/" //관리자페이지-테스트용
     }
 }

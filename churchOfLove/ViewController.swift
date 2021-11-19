@@ -222,9 +222,16 @@ extension ViewController: WKScriptMessageHandler {
         let uiImage = base64Convert(img)
         let mergedImage = mergeTextToImage(title: title, contents: text, textColor: textColor, image: uiImage)
         
+        print("📗", "type is \(type), contentType is \(contentType), text is \(text), textColor is \(textColor)")
+        
         //데이터 검증
+        if(contentType == .EMPTY) {
+            shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), TEXT & IMAGE is null")
+            return
+        }
+        
         if(contentType == .ONLY_TEXT) {
-            if(text == nil) {
+            if(text == nil || text!.isEmpty) {
                 shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), TEXT is null")
                 return
             }
@@ -235,7 +242,7 @@ extension ViewController: WKScriptMessageHandler {
             }
         } else if(contentType == .BOTH) {
             if(mergedImage == nil) {
-                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), MERGE IMAGE is null")
+                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), IMAGE is null")
                 return
             }
         }
@@ -350,26 +357,26 @@ extension ViewController: WKScriptMessageHandler {
         currentImage.frame = CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height)
         currentView.addSubview(currentImage)
         
+        let text = title + "\n\n" + contents
+        
         let label = UILabel()
         label.frame = currentView.frame
-
-
-        let text = title + "\n\n" + contents
-        let font = UIFont(name:"HelveticaNeue-Medium" , size: 28)
-        let titleFont = UIFont(name:"Noteworthy-Bold" , size: 32)
-
-        let attributedStr = NSMutableAttributedString(string: text)
-        attributedStr.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: font ?? .init(), range: (text as NSString).range(of: text))
-        attributedStr.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: (text as NSString).range(of: text))
-//
-//        attributedStr.addAttribute(NSAttributedString.Key(rawValue: kCTFontAttributeName as String), value: titleFont ?? .init(), range: (text as NSString).range(of: title))
-
         
+        label.font = .systemFont(ofSize: 28)
+        label.textColor = color
+        label.text = text
+        
+        let rangeTitle = (text as NSString).range(of: title)
+        let fontTitle = UIFont(name:"HelveticaNeue-Bold" , size: 30)
+        
+        let attributedStr = NSMutableAttributedString(string: text)
+        attributedStr.addAttributes([.font: fontTitle as Any, .foregroundColor: color as Any], range: rangeTitle)
+      
         label.attributedText = attributedStr
+        label.center = currentView.center
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.text = text
-        label.center = currentView.center
+        
         currentView.addSubview(label)
         
         guard let currentContext = UIGraphicsGetCurrentContext() else {

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
         application.registerForRemoteNotifications()
         
-        let firstLaunch = FirstLaunch()
+        let firstLaunch = FirstLaunch.shared
         
         if !firstLaunch.isFirstLaunch {
             Thread.sleep(forTimeInterval: 2.0)

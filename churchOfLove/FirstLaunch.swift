@@ -8,13 +8,15 @@
 import Foundation
 
 final class FirstLaunch {
+    static let shared = FirstLaunch()
+    
     let userDefaults: UserDefaults = .standard
     let wasLaunchedBefore: Bool
     
     var isFirstLaunch: Bool { return !wasLaunchedBefore }
     
-    init() {
-        let key = "com.any-suggestion.FirstLaunch.WasLaunchedBefore"
+    private init() {
+        let key = "com.FirstLaunch.WasLaunchedBefore"
         let wasLaunchedBefore = userDefaults.bool(forKey: key)
         self.wasLaunchedBefore = wasLaunchedBefore
         if !wasLaunchedBefore {

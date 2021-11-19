@@ -17,7 +17,7 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 
         initializeWebView()
         
-        let firstLaunch = FirstLaunch()
+        let firstLaunch = FirstLaunch.shared
         var loadURL = ""
         if firstLaunch.isFirstLaunch {
             loadURL = Constants.BASE_URL.GUIDE_DOMAIN_URL
@@ -174,13 +174,13 @@ extension ViewController: WKScriptMessageHandler {
             break
         }
     }
-    
+        
     func callResponseDeviceInfo() {
         do {
             //기기 정보를 json string 으로 만든다.
             var transferData : [String: Any] = [
                 "OS_VER": UIDevice.current.systemVersion,
-                "APP_VER": "1.0.0",
+                "APP_VER": currentAppVersion(),
                 "MODEL_NM": UIDevice.modelName,
                 "ANDROID_ID": UIDevice.current.identifierForVendor!.uuidString,
                 "FCM_TOKEN": UserDefaults.standard.string(forKey: "fcmToken")
@@ -201,6 +201,15 @@ extension ViewController: WKScriptMessageHandler {
         }
     }
     
+    func currentAppVersion() -> String {
+      if let info: [String: Any] = Bundle.main.infoDictionary,
+          let currentVersion: String
+            = info["CFBundleShortVersionString"] as? String {
+            return currentVersion
+      }
+      return "nil"
+    }
+    
     func shareImage(_ content: Dictionary<String, String>) {
         let type = content["TYPE"]
         let title = content["TITLE"]
@@ -213,31 +222,40 @@ extension ViewController: WKScriptMessageHandler {
         let uiImage = base64Convert(img)
         let mergedImage = mergeTextToImage(title: title, contents: text, textColor: textColor, image: uiImage)
         
+        //데이터 검증
+        if(contentType == .ONLY_TEXT) {
+            if(text == nil) {
+                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), TEXT is null")
+                return
+            }
+        } else if(contentType == .ONLY_IMG) {
+            if(uiImage == nil) {
+                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), IMAGE is null")
+                return
+            }
+        } else if(contentType == .BOTH) {
+            if(mergedImage == nil) {
+                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), MERGE IMAGE is null")
+                return
+            }
+        }
+        
+        
         //저장 - image nil 아닐 때
         if type == "SAVE" {
             if(contentType == .ONLY_TEXT) { //text만 있을 때
-                shareImageRtn(type, "FAIL", "")
+                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), not support ONLY TEXT")
                 return
             }
             
             if(contentType == .ONLY_IMG) {  //image만 있을 때
-                if(uiImage == nil) {
-                    shareImageRtn(type, "FAIL", "")
-                    return
-                } else {
-                    //갤러리저장
-                    UIImageWriteToSavedPhotosAlbum(uiImage!,self, nil, nil)
-                }
+                //갤러리저장
+                UIImageWriteToSavedPhotosAlbum(uiImage!,self, nil, nil)
             }
             
             if(contentType == .BOTH) {  //text+image 있을 때
-                if(mergedImage == nil) {
-                    shareImageRtn(type, "FAIL", "")
-                    return
-                } else {
-                    //갤러리저장
-                    UIImageWriteToSavedPhotosAlbum(mergedImage!, self, nil, nil)
-                }
+                //갤러리저장
+                UIImageWriteToSavedPhotosAlbum(mergedImage!, self, nil, nil)
             }
         }
         
@@ -258,9 +276,10 @@ extension ViewController: WKScriptMessageHandler {
             }
             
             if(shareContent == nil) {
-                shareImageRtn(type, "FAIL", "")
+                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), shareContent is null")
                 return
-            } else {
+            }
+            else {
                 let vc = UIActivityViewController(activityItems: [shareContent], applicationActivities: nil)
                 vc.excludedActivityTypes = [.saveToCameraRoll] //
                 present(vc, animated: true)
@@ -287,7 +306,7 @@ extension ViewController: WKScriptMessageHandler {
     }
     
     func shareImageRtn(_ type: String?, _ isSuccess: String?, _ msg: String?) {
-        var transferData : [String: Any] = [
+        let transferData : [String: String?] = [
             "TYPE": type,
             "RESULT": isSuccess,
             "MSG": msg

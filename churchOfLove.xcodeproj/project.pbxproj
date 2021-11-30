@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		108A26269A4B3486CC0BB9CF /* Pods_churchOfLove_churchOfLoveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 424B8D7E981237D114BE0723 /* Pods_churchOfLove_churchOfLoveUITests.framework */; };
-		526E97C9F83A5ED035399DC7 /* Pods_churchOfLoveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 713E7D3494A6F53AE3046E38 /* Pods_churchOfLoveTests.framework */; };
+		0AA6F2D80EBB95A9315858F9 /* Pods_churchOfLove_churchOfLoveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A6949CF729BA32D9232753 /* Pods_churchOfLove_churchOfLoveUITests.framework */; };
+		663B1D6869B1F0B437E810CC /* Pods_churchOfLoveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A34B34F85D9FD1E6562163 /* Pods_churchOfLoveTests.framework */; };
+		807205127189C30F6F9B0C33 /* Pods_churchOfLove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C8298E44D7D38262070089 /* Pods_churchOfLove.framework */; };
+		9830EE79274A2E7600E45D57 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9830EE78274A2E7600E45D57 /* GoogleService-Info.plist */; };
 		9899799127033CD8006AEF79 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9899799027033CD8006AEF79 /* UIDevice.swift */; };
 		989979932705D2C9006AEF79 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989979922705D2C9006AEF79 /* String.swift */; };
 		989979D32705F0FD006AEF79 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989979D22705F0FD006AEF79 /* UIImageView.swift */; };
 		989979D52705F6BF006AEF79 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989979D42705F6BF006AEF79 /* ContentType.swift */; };
-		98ED784C273FEF1100ACDECA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98EE313D270AEBA500457AF8 /* GoogleService-Info.plist */; };
 		98ED785727401AB100ACDECA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98ED785927401AB100ACDECA /* InfoPlist.strings */; };
 		98EE312E270AB8F900457AF8 /* WKWebViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE312D270AB8F900457AF8 /* WKWebViewConfiguration.swift */; };
 		98EE3130270ABAC300457AF8 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE312F270ABAC300457AF8 /* ServiceConfiguration.swift */; };
@@ -21,7 +22,6 @@
 		98EE3134270AC6A800457AF8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE3133270AC6A800457AF8 /* Constants.swift */; };
 		98EE3136270AC72500457AF8 /* KeyValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE3135270AC72500457AF8 /* KeyValueStore.swift */; };
 		98EE3140270B04CC00457AF8 /* FirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE313F270B04CC00457AF8 /* FirstLaunch.swift */; };
-		C40542B44FB6AF09FFC9481B /* Pods_churchOfLove.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C83301A9504502CE399A60E7 /* Pods_churchOfLove.framework */; };
 		CA9877E726C2608000C176BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9877E626C2608000C176BA /* AppDelegate.swift */; };
 		CA9877E926C2608000C176BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9877E826C2608000C176BA /* SceneDelegate.swift */; };
 		CA9877EB26C2608000C176BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9877EA26C2608000C176BA /* ViewController.swift */; };
@@ -50,12 +50,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		28DD7F41E52C921FE944B6AC /* Pods-churchOfLove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove.release.xcconfig"; path = "Target Support Files/Pods-churchOfLove/Pods-churchOfLove.release.xcconfig"; sourceTree = "<group>"; };
-		424B8D7E981237D114BE0723 /* Pods_churchOfLove_churchOfLoveUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_churchOfLove_churchOfLoveUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C160C587845FD631E37F8A3 /* Pods-churchOfLove-churchOfLoveUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove-churchOfLoveUITests.release.xcconfig"; path = "Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests.release.xcconfig"; sourceTree = "<group>"; };
-		713E7D3494A6F53AE3046E38 /* Pods_churchOfLoveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_churchOfLoveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		789B7291AA1F7CB920BE540A /* Pods-churchOfLove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove.debug.xcconfig"; path = "Target Support Files/Pods-churchOfLove/Pods-churchOfLove.debug.xcconfig"; sourceTree = "<group>"; };
-		97FF56A7BF1707325CEE6F5A /* Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig"; path = "Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		45A6949CF729BA32D9232753 /* Pods_churchOfLove_churchOfLoveUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_churchOfLove_churchOfLoveUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DAB70A175F85FF7F759D638 /* Pods-churchOfLove-churchOfLoveUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove-churchOfLoveUITests.release.xcconfig"; path = "Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6195C877A189A58345E251DF /* Pods-churchOfLoveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLoveTests.release.xcconfig"; path = "Target Support Files/Pods-churchOfLoveTests/Pods-churchOfLoveTests.release.xcconfig"; sourceTree = "<group>"; };
+		63030C520E3790097F28EEDA /* Pods-churchOfLoveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLoveTests.debug.xcconfig"; path = "Target Support Files/Pods-churchOfLoveTests/Pods-churchOfLoveTests.debug.xcconfig"; sourceTree = "<group>"; };
+		78C8298E44D7D38262070089 /* Pods_churchOfLove.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_churchOfLove.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		88A34B34F85D9FD1E6562163 /* Pods_churchOfLoveTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_churchOfLoveTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9830EE78274A2E7600E45D57 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9899799027033CD8006AEF79 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDevice.swift; path = "../../../../../Source/private/iOS/RxSwift_In_4_Hours-master/churchOfLove/UIDevice.swift"; sourceTree = "<group>"; };
 		989979922705D2C9006AEF79 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = String.swift; path = "../../../../../Source/private/iOS/RxSwift_In_4_Hours-master/churchOfLove/String.swift"; sourceTree = "<group>"; };
 		989979D22705F0FD006AEF79 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageView.swift; path = "../../../../../Source/private/iOS/RxSwift_In_4_Hours-master/churchOfLove/UIImageView.swift"; sourceTree = "<group>"; };
@@ -70,9 +71,8 @@
 		98EE3133270AC6A800457AF8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		98EE3135270AC72500457AF8 /* KeyValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStore.swift; sourceTree = "<group>"; };
 		98EE313C270AE17A00457AF8 /* churchOfLove.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = churchOfLove.entitlements; sourceTree = "<group>"; };
-		98EE313D270AEBA500457AF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		98EE313F270B04CC00457AF8 /* FirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunch.swift; sourceTree = "<group>"; };
-		C83301A9504502CE399A60E7 /* Pods_churchOfLove.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_churchOfLove.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC44BA6992AEC8F81028A65D /* Pods-churchOfLove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove.release.xcconfig"; path = "Target Support Files/Pods-churchOfLove/Pods-churchOfLove.release.xcconfig"; sourceTree = "<group>"; };
 		CA9877E326C2608000C176BA /* churchOfLove.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = churchOfLove.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9877E626C2608000C176BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA9877E826C2608000C176BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,8 +87,8 @@
 		CA98780426C2608800C176BA /* churchOfLoveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = churchOfLoveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA98780826C2608800C176BA /* churchOfLoveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = churchOfLoveUITests.swift; sourceTree = "<group>"; };
 		CA98780A26C2608800C176BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DF8FCBC22DE773213789EE13 /* Pods-churchOfLoveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLoveTests.release.xcconfig"; path = "Target Support Files/Pods-churchOfLoveTests/Pods-churchOfLoveTests.release.xcconfig"; sourceTree = "<group>"; };
-		F6F9093FD295F45646F65E4D /* Pods-churchOfLoveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLoveTests.debug.xcconfig"; path = "Target Support Files/Pods-churchOfLoveTests/Pods-churchOfLoveTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D194688A2986E8AF07486E74 /* Pods-churchOfLove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove.debug.xcconfig"; path = "Target Support Files/Pods-churchOfLove/Pods-churchOfLove.debug.xcconfig"; sourceTree = "<group>"; };
+		E86445758268567F1E2DD24E /* Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig"; path = "Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C40542B44FB6AF09FFC9481B /* Pods_churchOfLove.framework in Frameworks */,
+				807205127189C30F6F9B0C33 /* Pods_churchOfLove.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				526E97C9F83A5ED035399DC7 /* Pods_churchOfLoveTests.framework in Frameworks */,
+				663B1D6869B1F0B437E810CC /* Pods_churchOfLoveTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				108A26269A4B3486CC0BB9CF /* Pods_churchOfLove_churchOfLoveUITests.framework in Frameworks */,
+				0AA6F2D80EBB95A9315858F9 /* Pods_churchOfLove_churchOfLoveUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,22 +122,22 @@
 		A404767631000302BF0441F2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				789B7291AA1F7CB920BE540A /* Pods-churchOfLove.debug.xcconfig */,
-				28DD7F41E52C921FE944B6AC /* Pods-churchOfLove.release.xcconfig */,
-				97FF56A7BF1707325CEE6F5A /* Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig */,
-				6C160C587845FD631E37F8A3 /* Pods-churchOfLove-churchOfLoveUITests.release.xcconfig */,
-				F6F9093FD295F45646F65E4D /* Pods-churchOfLoveTests.debug.xcconfig */,
-				DF8FCBC22DE773213789EE13 /* Pods-churchOfLoveTests.release.xcconfig */,
+				D194688A2986E8AF07486E74 /* Pods-churchOfLove.debug.xcconfig */,
+				AC44BA6992AEC8F81028A65D /* Pods-churchOfLove.release.xcconfig */,
+				E86445758268567F1E2DD24E /* Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig */,
+				5DAB70A175F85FF7F759D638 /* Pods-churchOfLove-churchOfLoveUITests.release.xcconfig */,
+				63030C520E3790097F28EEDA /* Pods-churchOfLoveTests.debug.xcconfig */,
+				6195C877A189A58345E251DF /* Pods-churchOfLoveTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B121B3AFCE796F508C808CBE /* Frameworks */ = {
+		BA7866A4C518C53780417A42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C83301A9504502CE399A60E7 /* Pods_churchOfLove.framework */,
-				424B8D7E981237D114BE0723 /* Pods_churchOfLove_churchOfLoveUITests.framework */,
-				713E7D3494A6F53AE3046E38 /* Pods_churchOfLoveTests.framework */,
+				78C8298E44D7D38262070089 /* Pods_churchOfLove.framework */,
+				45A6949CF729BA32D9232753 /* Pods_churchOfLove_churchOfLoveUITests.framework */,
+				88A34B34F85D9FD1E6562163 /* Pods_churchOfLoveTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,7 +150,7 @@
 				CA98780726C2608800C176BA /* churchOfLoveUITests */,
 				CA9877E426C2608000C176BA /* Products */,
 				A404767631000302BF0441F2 /* Pods */,
-				B121B3AFCE796F508C808CBE /* Frameworks */,
+				BA7866A4C518C53780417A42 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,7 +167,7 @@
 		CA9877E526C2608000C176BA /* churchOfLove */ = {
 			isa = PBXGroup;
 			children = (
-				98EE313D270AEBA500457AF8 /* GoogleService-Info.plist */,
+				9830EE78274A2E7600E45D57 /* GoogleService-Info.plist */,
 				98EE313C270AE17A00457AF8 /* churchOfLove.entitlements */,
 				CA9877E626C2608000C176BA /* AppDelegate.swift */,
 				CA9877E826C2608000C176BA /* SceneDelegate.swift */,
@@ -216,12 +216,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA98780D26C2608800C176BA /* Build configuration list for PBXNativeTarget "churchOfLove" */;
 			buildPhases = (
-				D84A65D6501D8AAE8F499B78 /* [CP] Check Pods Manifest.lock */,
+				5997B4106364C7D9BFDE5E6E /* [CP] Check Pods Manifest.lock */,
 				CA9877DF26C2608000C176BA /* Sources */,
 				CA9877E026C2608000C176BA /* Frameworks */,
 				CA9877E126C2608000C176BA /* Resources */,
 				98EE313B270AD75900457AF8 /* Firebase crashlytics */,
-				C954249F32FE380693033B2B /* [CP] Embed Pods Frameworks */,
+				AAEC41F372B3A83A014308CD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -236,7 +236,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA98781026C2608800C176BA /* Build configuration list for PBXNativeTarget "churchOfLoveTests" */;
 			buildPhases = (
-				11B4E6D4387F9BED856C65AE /* [CP] Check Pods Manifest.lock */,
+				69F7EDD840D3AB228765B047 /* [CP] Check Pods Manifest.lock */,
 				CA9877F526C2608800C176BA /* Sources */,
 				CA9877F626C2608800C176BA /* Frameworks */,
 				CA9877F726C2608800C176BA /* Resources */,
@@ -255,11 +255,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CA98781326C2608800C176BA /* Build configuration list for PBXNativeTarget "churchOfLoveUITests" */;
 			buildPhases = (
-				A656BFE653E62C8406D6DF83 /* [CP] Check Pods Manifest.lock */,
+				15DB402B1BFBA37D4A334B93 /* [CP] Check Pods Manifest.lock */,
 				CA98780026C2608800C176BA /* Sources */,
 				CA98780126C2608800C176BA /* Frameworks */,
 				CA98780226C2608800C176BA /* Resources */,
-				C3C5ED1183ADEB8C4DDA973E /* [CP] Embed Pods Frameworks */,
+				D2CFAECA3B050D975FFA0C5F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -319,11 +319,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98ED784C273FEF1100ACDECA /* GoogleService-Info.plist in Resources */,
 				CA9877F326C2608800C176BA /* LaunchScreen.storyboard in Resources */,
 				CA9877F026C2608800C176BA /* Assets.xcassets in Resources */,
 				CA9877EE26C2608000C176BA /* Main.storyboard in Resources */,
 				98ED785727401AB100ACDECA /* InfoPlist.strings in Resources */,
+				9830EE79274A2E7600E45D57 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +344,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11B4E6D4387F9BED856C65AE /* [CP] Check Pods Manifest.lock */ = {
+		15DB402B1BFBA37D4A334B93 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-churchOfLove-churchOfLoveUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5997B4106364C7D9BFDE5E6E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-churchOfLove-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69F7EDD840D3AB228765B047 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -386,46 +430,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n    \"${PODS_ROOT}/FirebaseCrashlytics/run\"\n    \"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp ${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\n";
 		};
-		A656BFE653E62C8406D6DF83 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-churchOfLove-churchOfLoveUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C3C5ED1183ADEB8C4DDA973E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C954249F32FE380693033B2B /* [CP] Embed Pods Frameworks */ = {
+		AAEC41F372B3A83A014308CD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -442,26 +447,21 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-churchOfLove/Pods-churchOfLove-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D84A65D6501D8AAE8F499B78 /* [CP] Check Pods Manifest.lock */ = {
+		D2CFAECA3B050D975FFA0C5F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-churchOfLove-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-churchOfLove-churchOfLoveUITests/Pods-churchOfLove-churchOfLoveUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -601,7 +601,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -657,7 +657,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -669,7 +669,7 @@
 		};
 		CA98780E26C2608800C176BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 789B7291AA1F7CB920BE540A /* Pods-churchOfLove.debug.xcconfig */;
+			baseConfigurationReference = D194688A2986E8AF07486E74 /* Pods-churchOfLove.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -678,7 +678,8 @@
 				CODE_SIGN_ENTITLEMENTS = churchOfLove/churchOfLove.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 7J9562JNF9;
 				INFOPLIST_FILE = churchOfLove/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -696,7 +697,7 @@
 		};
 		CA98780F26C2608800C176BA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 28DD7F41E52C921FE944B6AC /* Pods-churchOfLove.release.xcconfig */;
+			baseConfigurationReference = AC44BA6992AEC8F81028A65D /* Pods-churchOfLove.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -705,6 +706,8 @@
 				CODE_SIGN_ENTITLEMENTS = churchOfLove/churchOfLove.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 7J9562JNF9;
 				INFOPLIST_FILE = churchOfLove/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -722,7 +725,7 @@
 		};
 		CA98781126C2608800C176BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6F9093FD295F45646F65E4D /* Pods-churchOfLoveTests.debug.xcconfig */;
+			baseConfigurationReference = 63030C520E3790097F28EEDA /* Pods-churchOfLoveTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -744,7 +747,7 @@
 		};
 		CA98781226C2608800C176BA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF8FCBC22DE773213789EE13 /* Pods-churchOfLoveTests.release.xcconfig */;
+			baseConfigurationReference = 6195C877A189A58345E251DF /* Pods-churchOfLoveTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -766,7 +769,7 @@
 		};
 		CA98781426C2608800C176BA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 97FF56A7BF1707325CEE6F5A /* Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig */;
+			baseConfigurationReference = E86445758268567F1E2DD24E /* Pods-churchOfLove-churchOfLoveUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -786,7 +789,7 @@
 		};
 		CA98781526C2608800C176BA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C160C587845FD631E37F8A3 /* Pods-churchOfLove-churchOfLoveUITests.release.xcconfig */;
+			baseConfigurationReference = 5DAB70A175F85FF7F759D638 /* Pods-churchOfLove-churchOfLoveUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

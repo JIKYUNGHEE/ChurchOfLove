@@ -1,5 +1,6 @@
 import UIKit
 import WebKit
+import Firebase
 
 class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     
@@ -10,6 +11,8 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Crashlytics.crashlytics().setUserID(UIDevice.current.identifierForVendor!.uuidString)
         
         let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
         let date = Date(timeIntervalSince1970: 0)
@@ -26,14 +29,18 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         }
         
         loadWebPage(loadURL)
+        
+        Crashlytics.crashlytics().log("viewDidLoad() - FINISH")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         willBecomeActive()
+        Crashlytics.crashlytics().log("willBecomeActive() - FINISH")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         wllBecomeActive_Del()
+        Crashlytics.crashlytics().log("willBecomeActive() - FINISH")
     }
     
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() } //모달창 닫힐때 앱 종료현상 방지.
@@ -82,6 +89,8 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
             view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
             view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
         }
+        
+        Crashlytics.crashlytics().log("initializeWebView() - FINISH")
     }
         
     override func viewSafeAreaInsetsDidChange() {
@@ -103,6 +112,9 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         }
         
         self.webView.load(request)
+        Crashlytics.crashlytics().log("loadWebPage(\(loadURL) - FINISH")
+        
+//        fatalError()    //FIXME. REMOVE(강제 종료)
     }
 
     
@@ -126,8 +138,13 @@ class ViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
         let userDefault = UserDefaults.standard
         
         guard let loadUrl = userDefault.object(forKey: "PUSH_URL") as? String else {
+            print("📙", "appDidBecomeActive(): PUSH - loadUrl is nil")
+            Crashlytics.crashlytics().log("appDidBecomeActive() - loadUrl is nil")
             return
         }
+        
+        print("📗", "appDidBecomeActive(): PUSH - loadUrl is \(loadUrl)")
+        Crashlytics.crashlytics().log("appDidBecomeActive() - loadUrl is nil")
         
         let request: URLRequest = URLRequest.init(url: NSURL.init(string: loadUrl)! as URL, cachePolicy: URLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: 10)
         self.webView?.load(request)
@@ -143,10 +160,10 @@ extension ViewController: WKScriptMessageHandler {
         switch message.name {
         case "callNative":
             let body = message.body
-            print(body)
+            print("📗", "callNative - \(body)")
+            Crashlytics.crashlytics().log("callNative - \(body)")
             
             if let content :[String:String] = message.body as? Dictionary {
-                print(content)
                 
                 if let function = content["FUNC"] {
                     if function == "requestDeviceInfo" {
@@ -158,18 +175,6 @@ extension ViewController: WKScriptMessageHandler {
                     }
                 }
             }
-            
-        case "callNativeRtn":
-            let content = message.body
-            print(content)
-            let alert = UIAlertController(title: nil, message: "callNativeRtn 호출", preferredStyle: .alert)
-            let action = UIAlertAction(title: "확인", style: .default, handler: nil)
-            alert.addAction(action)
-            self.present(alert, animated: true, completion: nil)
-            
-            //            let dataString = ""
-            //            webView.evaluateJavaScript("callWeb('\(dataString)')", completionHandler: nil)
-
         default:
             break
         }
@@ -178,7 +183,7 @@ extension ViewController: WKScriptMessageHandler {
     func callResponseDeviceInfo() {
         do {
             //기기 정보를 json string 으로 만든다.
-            var transferData : [String: Any] = [
+            let transferData : [String: String?] = [
                 "OS_VER": UIDevice.current.systemVersion,
                 "APP_VER": currentAppVersion(),
                 "MODEL_NM": UIDevice.modelName,
@@ -188,16 +193,19 @@ extension ViewController: WKScriptMessageHandler {
             
             let jsonData = try JSONSerialization.data(withJSONObject: transferData, options: [])
             let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
-            print (jsonString)
+            print ("📗", "callResponseDeviceInfo()-\(jsonString)")
+            Crashlytics.crashlytics().log("callResponseDeviceInfo() - jsonString:\(jsonString)")
             
             webView.evaluateJavaScript("native.callWeb('responseDeviceInfo', '\(jsonString)')", completionHandler: {
                 result, error in
                 if let anError = error {
-                    print("* error \(anError.localizedDescription)")
+                    print("📕", "* error \(anError.localizedDescription)")
+                    Crashlytics.crashlytics().record(error: anError)
                 }
             })
         } catch {
-            //TODO.
+            print("📕", "* error \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
     }
     
@@ -207,7 +215,7 @@ extension ViewController: WKScriptMessageHandler {
             = info["CFBundleShortVersionString"] as? String {
             return currentVersion
       }
-      return "nil"
+      return "1.0.0"
     }
     
     func shareImage(_ content: Dictionary<String, String>) {
@@ -222,27 +230,40 @@ extension ViewController: WKScriptMessageHandler {
         let uiImage = base64Convert(img)
         let mergedImage = mergeTextToImage(title: title, contents: text, textColor: textColor, image: uiImage)
         
-        print("📗", "type is \(type), contentType is \(contentType), text is \(text), textColor is \(textColor)")
+        print("📗", "type is \(String(describing: type)), contentType is \(String(describing: contentType)), text is \(String(describing: text)), textColor is \(String(describing: textColor))")
+        Crashlytics.crashlytics().log("shareImage() - type is \(String(describing: type)), contentType is \(String(describing: contentType)), text is \(String(describing: text)), textColor is \(String(describing: textColor))")
         
         //데이터 검증
-        if(contentType == .EMPTY) {
-            shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), TEXT & IMAGE is null")
+        if(contentType == nil || contentType == .EMPTY) {
+            print("📙", "shareImage() - type is \(String(describing: type)), contentType is  \(String(describing: contentType)), TEXT & IMAGE is nil")
+            Crashlytics.crashlytics().log("shareImage() - type is \(String(describing: type)), contentType is  \(String(describing: contentType)), TEXT is nil")
+            
+            shareImageRtn(type, "FAIL", "type is \(String(describing: type)), contentType is \(String(describing: contentType)), TEXT & IMAGE is nil")
             return
         }
         
         if(contentType == .ONLY_TEXT) {
             if(text == nil || text!.isEmpty) {
-                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), TEXT is null")
+                print("📙", "shareImage() - type is \(String(describing: type)), contentType is  \(String(describing: contentType)), TEXT is nil")
+                Crashlytics.crashlytics().log("shareImage() - type is \(String(describing: type)), contentType is  \(String(describing: contentType)), TEXT is nil")
+                
+                shareImageRtn(type, "FAIL", "type is \(String(describing: type)), contentType is  \(String(describing: contentType)), TEXT is nil")
                 return
             }
         } else if(contentType == .ONLY_IMG) {
             if(uiImage == nil) {
-                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), IMAGE is null")
+                print("📙", "shareImage() - type is \(String(describing: type)), contentType is  \(String(describing: contentType)), TEXT is nil")
+                Crashlytics.crashlytics().log("shareImage() - type is \(String(describing: type)), contentType is  \(String(describing: contentType)), TEXT is nil")
+                
+                shareImageRtn(type, "FAIL", "type is \(String(describing: type)), contentType is  \(String(describing: contentType))), IMAGE is nil")
                 return
             }
         } else if(contentType == .BOTH) {
             if(mergedImage == nil) {
-                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), IMAGE is null")
+                print("📙", "shareImage() - type is \(String(describing: type)), contentType is  \(String(describing: contentType)), IMAGE is nil")
+                Crashlytics.crashlytics().log("shareImage() - ttype is \(String(describing: type)), contentType is  \(String(describing: contentType)), IMAGE is nil")
+                
+                shareImageRtn(type, "FAIL", "type is \(String(describing: type)), contentType is  \(String(describing: contentType)), IMAGE is nil")
                 return
             }
         }
@@ -251,7 +272,7 @@ extension ViewController: WKScriptMessageHandler {
         //저장 - image nil 아닐 때
         if type == "SAVE" {
             if(contentType == .ONLY_TEXT) { //text만 있을 때
-                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), not support ONLY TEXT")
+                shareImageRtn(type, "FAIL", "type is \(String(describing: type)), contentType is  \(String(describing: contentType)), not support ONLY TEXT")
                 return
             }
             
@@ -283,7 +304,7 @@ extension ViewController: WKScriptMessageHandler {
             }
             
             if(shareContent == nil) {
-                shareImageRtn(type, "FAIL", "type is \(type), contentType is \(contentType), shareContent is null")
+                shareImageRtn(type, "FAIL", "type is \(String(describing: type)), contentType is  \(String(describing: contentType)), shareContent is nil")
                 return
             }
             else {
@@ -296,16 +317,22 @@ extension ViewController: WKScriptMessageHandler {
     
     func base64Convert(_ base64String: String?) -> UIImage? {
         if(base64String == nil) {
+            print("📙", "base64Convert() - base64String is nil")
+            Crashlytics.crashlytics().log("base64Convert() - base64String is nil")
             return nil
         }
         
         if (base64String?.isEmpty)! {
+            print("📙", "base64Convert() - base64String is empty")
+            Crashlytics.crashlytics().log("base64Convert() - base64String is empty")
             return nil
         } else {
             // !!! Separation part is optional, depends on your Base64String !!!
             let temp = base64String?.components(separatedBy: ",")
             let dataDecoded : Data = Data(base64Encoded: temp![1], options: .ignoreUnknownCharacters)!
             guard let decodedimage = UIImage(data: dataDecoded) else {
+                print("📙", "base64Convert() - decodedimage is nil")
+                Crashlytics.crashlytics().log("base64Convert() - decodedimage is nil")
                 return nil
             }
             return decodedimage
@@ -313,42 +340,52 @@ extension ViewController: WKScriptMessageHandler {
     }
     
     func shareImageRtn(_ type: String?, _ isSuccess: String?, _ msg: String?) {
-        let transferData : [String: String?] = [
-            "TYPE": type,
-            "RESULT": isSuccess,
-            "MSG": msg
-        ]
-        
         do {
+            let transferData : [String: String?] = [
+                "TYPE": type,
+                "RESULT": isSuccess,
+                "MSG": msg
+            ]
+            
             let jsonData = try JSONSerialization.data(withJSONObject: transferData, options: [])
             
             let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
-            print (jsonString)
+            print("📗", "shareImageRtn() - jjsonString is \(jsonString)")
+            Crashlytics.crashlytics().log("shareImageRtn() - jsonString: \(jsonString)")
             
             webView.evaluateJavaScript("native.callWeb('shareImageRtn', '\(jsonString)')", completionHandler: {
                 result, error in
                 if let anError = error {
-                    print("* error \(anError.localizedDescription)")
+                    print("📕", "* error \(anError.localizedDescription)")
+                    Crashlytics.crashlytics().record(error: anError)
                 }
             })
         } catch {
-            
+            print("📕", "* error \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
-        
     }
     
     func mergeTextToImage(title: String?, contents: String?, textColor: String? , image: UIImage?) -> UIImage? {
-        guard let title = title else {
+       guard let title = title else {
+            print("📙", "mergeTextToImage() - title is nil")
+            Crashlytics.crashlytics().log("mergeTextToImage() - title is nil")
             return nil
         }
         guard let contents = contents else {
+            print("📙", "mergeTextToImage() - contents is nil")
+            Crashlytics.crashlytics().log("mergeTextToImage() - contents is nil")
             return nil
         }
         guard let image = image else {
+            print("📙", "mergeTextToImage() - image is nil")
+            Crashlytics.crashlytics().log("mergeTextToImage() - image is nil")
             return nil
         }
         
         let color = (textColor == "#000000") ? UIColor.black : UIColor.white
+        print("📗", "mergeTextToImage() -  [in] color is \(String(describing: textColor)) -> [out] color is \(color)")
+        Crashlytics.crashlytics().log("mergeTextToImage() -  [in] color is \(String(describing: textColor)) -> [out] color is \(color)")
         
         let imageSize = image.size
         UIGraphicsBeginImageContextWithOptions(CGSize(width: imageSize.width, height: imageSize.height), false, 1.0)
@@ -380,10 +417,14 @@ extension ViewController: WKScriptMessageHandler {
         currentView.addSubview(label)
         
         guard let currentContext = UIGraphicsGetCurrentContext() else {
+            print("📙", "UIGraphicsGetCurrentContext() is nil")
+            Crashlytics.crashlytics().log("mergeTextToImage() -  UIGraphicsGetCurrentContext() is nil")
             return nil
         }
         currentView.layer.render(in: currentContext)
         guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            print("📙", "UIGraphicsGetImageFromCurrentImageContext() is nil")
+            Crashlytics.crashlytics().log("mergeTextToImage() - UIGraphicsGetImageFromCurrentImageContext() is nil")
             return nil
         }
         

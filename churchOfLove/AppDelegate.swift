@@ -56,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     //-MARK: Push 응답 왔을 때 동작
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        Crashlytics.crashlytics().log("userNotificationCenter() - get PUSH")
         completionHandler([.alert, .badge, .sound]) //foreground 상태에서도 알림 옴
     }
     
@@ -65,14 +66,20 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         let pushUrl = userInfo["URL_TO_MOVE"] as? String
-        print("📕", (pushUrl ?? "링크 없음") as! String)
         
-        if pushUrl != nil {
+        guard let pushUrl = pushUrl else {
+            print("📕", "pushUrl is nil")
+            Crashlytics.crashlytics().log("userNotificationCenter() - pushUrl is nil")
+            completionHandler()
+            return
+        }
+        
+        if !pushUrl.isEmpty {
             print("📗", pushUrl)
             if UIApplication.shared.applicationState == .active {
                 print("📗", "clicked foreground")
                 let vc = UIApplication.shared.windows.first!.rootViewController as! ViewController
-                vc.loadWebPage(pushUrl!)
+                vc.loadWebPage(pushUrl)
             } else {
                 print("📗", "clicked background")
                 //UserDefaults에 URL 정보를 저장
@@ -83,7 +90,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             }
         } else {
             print("📕", "App delegate push, no link")
+            Crashlytics.crashlytics().log("userNotificationCenter() - App delegate push, no link, pushUrl is \(pushUrl)")
         }
+        
         completionHandler()
     }
 }
@@ -116,7 +125,6 @@ extension AppDelegate {
         ud.set(data, forKey: "cookie")
     }
 
-    
     func loadCookie(){
         let ud: UserDefaults = UserDefaults.standard
         let data: NSData? = ud.object(forKey: "cookie") as? NSData

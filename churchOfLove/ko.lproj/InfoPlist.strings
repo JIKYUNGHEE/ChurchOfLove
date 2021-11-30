@@ -8,3 +8,4 @@
 "CFBundleDisplayName" = "날마다 솟는 샘물";
 "CFBundleName" = "날마다 솟는 샘물";
 "NSPhotoLibraryUsageDescription" = "사진첩에 추가하도록 허용합니다.";
+" NSPhotoLibraryAddUsageDescription" = "사진첩에 추가하도록 허용합니다.";

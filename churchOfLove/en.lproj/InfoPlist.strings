@@ -8,3 +8,4 @@
 "CFBundleDisplayName" = "churchOfLove";
 "CFBundleName" = "churchOfLove";
 "NSPhotoLibraryUsageDescription" = "This app requires access to the photo libraray.";
+" NSPhotoLibraryAddUsageDescription" = "This app requires access to the photo libraray.";

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string></string>
+	<string>날마다 솓는 샘물</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -32,11 +32,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>This app requires access to camera</string>
+	<string>날마다 솟는 샘물이 당신의 카메라에 접근하도록 허용하시겠습니까?</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app requires access to the additions photo libraray</string>
+	<string>날마다 솟는 샘물이 당신의 사진첩에 접근하도록 허용하시겠습니까?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo libraray</string>
+	<string>날마다 솟는 샘물이 당신의 사진첩에 접근하도록 허용하시겠습니까?</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

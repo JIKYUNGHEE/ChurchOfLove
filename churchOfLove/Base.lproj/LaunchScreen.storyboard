@@ -17,18 +17,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="tIk-su-QDq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="날마다 솓는 샘물" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZ0-PV-Fjn">
+                                <rect key="frame" x="0.0" y="294" width="414" height="48"/>
+                                <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".Apple SD Gothic NeoI" pointSize="42"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="귀납적 묵상으로 삶의 변화를 돕는 제자 큐티" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HM9-NO-2bq">
+                                <rect key="frame" x="0.0" y="394" width="414" height="23.5"/>
+                                <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".Apple SD Gothic NeoI" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.03513292693775015" green="0.1504758854502255" blue="0.0263361736781982" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" name="AccentColor"/>
                         <color key="tintColor" name="AccentColor"/>
                         <constraints>
-                            <constraint firstItem="tIk-su-QDq" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="34" id="JWm-mO-RvM"/>
-                            <constraint firstItem="tIk-su-QDq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-44" id="USe-vI-jHe"/>
-                            <constraint firstItem="tIk-su-QDq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="nVh-TD-YdY"/>
-                            <constraint firstItem="tIk-su-QDq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qEv-tv-ZCu"/>
+                            <constraint firstItem="HM9-NO-2bq" firstAttribute="top" secondItem="SZ0-PV-Fjn" secondAttribute="top" constant="100" id="UKU-G3-ep3"/>
+                            <constraint firstItem="SZ0-PV-Fjn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="250" id="US3-gF-NmI"/>
+                            <constraint firstItem="HM9-NO-2bq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dwL-kn-CsU"/>
+                            <constraint firstItem="SZ0-PV-Fjn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="g0t-C0-99z"/>
+                            <constraint firstItem="HM9-NO-2bq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rbr-fQ-Yf5"/>
+                            <constraint firstItem="SZ0-PV-Fjn" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vda-7T-Es0"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,8 +50,8 @@
             <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.0" green="0.51325923204421997" blue="0.85291856527328491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
-        <image name="Image" width="187.5" height="406"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

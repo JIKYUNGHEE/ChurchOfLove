@@ -7,5 +7,6 @@
 */
 "CFBundleDisplayName" = "churchOfLove";
 "CFBundleName" = "churchOfLove";
-"NSPhotoLibraryUsageDescription" = "This app requires access to the photo libraray.";
-" NSPhotoLibraryAddUsageDescription" = "This app requires access to the photo libraray.";
+//"NSCameraUsageDescription" = "churchOfLove wolud you like to use your camera?";
+"NSPhotoLibraryUsageDescription" = "churchOfLove wolud you like to use your photo libraray??";
+"NSPhotoLibraryAddUsageDescription" = "churchOfLove wolud you like to use your photo libraray?";

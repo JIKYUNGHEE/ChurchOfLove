@@ -7,5 +7,6 @@
 */
 "CFBundleDisplayName" = "날마다 솟는 샘물";
 "CFBundleName" = "날마다 솟는 샘물";
-"NSPhotoLibraryUsageDescription" = "사진첩에 추가하도록 허용합니다.";
-" NSPhotoLibraryAddUsageDescription" = "사진첩에 추가하도록 허용합니다.";
+//"NSCameraUsageDescription" = "날마다 솟는 샘물이 당신의 카메라에 접근하도록 허용하시겠습니까?"
+"NSPhotoLibraryUsageDescription" = "날마다 솟는 샘물이 당신의 사진첩에 접근하도록 허용하시겠습니까?";
+"NSPhotoLibraryAddUsageDescription" = "날마다 솟는 샘물이 당신의 사진첩에 접근하도록 허용하시겠습니까?";
